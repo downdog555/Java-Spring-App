@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8" />
+    <title>Game Score Site with Spring</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+</head>
+<body>
+<h1 th:text="${pageHeader}">  </h1>
+<a href="/">Back</a>
+
+<form th:object="${value}" th:action="@{'/search'}"  method="get">
+    <label>Search: </label>
+    <input type="text" size="64" th:field="*{searchValue}" />
+    <input type="submit" value="Submit" />
+
+    <p class="warning" th:if="${#fields.hasErrors('searchValue')}">value cannot be empty.</p>
+</form>
+
+
+<div th:if="${entries.isEmpty()}">
+    <p>There are no entries in the score site. Please add some.</p>
+</div>
+<table>
+    <tr>
+        <th>User</th><th>Comment</th><th>Game Title</th><th>Game Score</th><th>Created</th><th>Modified</th><th>Delete</th><th>Update</th>
+    </tr>
+    <tr th:each="entry: ${entries}">
+        <td th:text="${entry.user}"></td>
+        <td th:text="${entry.comment}"></td>
+        <td th:text="${entry.gameTitle}"></td>
+        <td th:text="${entry.score}"></td>
+        <td th:text="${entry.created}"></td>
+        <td th:text="${entry.modified}"></td>
+        <td><a th:href="@{'/delete/' + ${entry.id}}">Delete</a></td>
+        <td><a th:href="@{'/update/' + ${entry.id}}">Update</a></td>
+    </tr>
+</table>
+
+
+<h2 th:text="${formHeader}"></h2>
+<form th:object="${newEntry}" method="post">
+    <label>User: </label>
+    <input type="text" size="32" th:field="*{user}" />
+    <label>Game Title: </label>
+    <input type="text" size="32" th:field="*{gameTitle}" />
+    <label>Score: </label>
+    <input type="number" size="32" th:field="*{score}" />
+    <label>Comment: </label>
+    <input type="text" size="64" th:field="*{comment}" />
+    <input type="submit" value="Submit" />
+    <input type="reset" value="Reset" />
+
+    <p class="warning" th:if="${#fields.hasErrors('user')}">User cannot be empty.</p>
+    <p class="warning" th:if="${#fields.hasErrors('comment')}">Comment cannot be empty.</p>
+    <p class="warning" th:if="${#fields.hasErrors('gameTitle')}">Game Title cannot be empty.</p>
+    <p class="warning" th:if="${#fields.hasErrors('score')}">Score cannot be empty and has to be an Integer.</p>
+</form>
+
+
+</body>
+</html>
