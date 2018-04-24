@@ -39,8 +39,24 @@ public class GameSiteService
     public void save (GameSiteEntry newEntry)
 
     {
-        String comment = newEntry.getComment();
-        char[] com = comment.toCharArray();
+
+
+
+
+
+
+
+        newEntry.setGameTitle(CleanString(newEntry.getGameTitle()));
+        newEntry.setComment(CleanString(newEntry.getComment()));
+        newEntry.setUser(CleanString(newEntry.getUser()));
+
+        this.gameSiteEntryRepository.save(newEntry);
+    }
+
+    private String CleanString(String value)
+    {
+
+        char[] com = value.toCharArray();
         for (int i =0; i< com.length;i++)
         {
             switch (com[i])
@@ -66,25 +82,21 @@ public class GameSiteService
         //comment = com.toString();
 
 
-        comment = String.copyValueOf(com);
+        value = String.copyValueOf(com);
 
         //we then check for banned words/replace them
 
         for (String word: bannedWords)
         {
-            comment = comment.replaceAll(word, "****");
+            value = value.replaceAll(word, "****");
 
         }
 
 
 
-
-
-
-        newEntry.setGameTitle(comment);
-
-        this.gameSiteEntryRepository.save(newEntry);
+        return value;
     }
+
 
     public GameSiteEntry findOne (Integer id) {
         return this.gameSiteEntryRepository.findGameSiteEntryById(id);
