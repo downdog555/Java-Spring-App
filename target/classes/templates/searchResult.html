@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 </head>
 <body>
-<h1> th:text="${pageHeader}"</h1>
+<h1 th:text="${pageHeader}"> </h1>
 <a href="/">Back</a>
 
 <form th:object="${value}" th:action="@{'/search'}"  method="get">

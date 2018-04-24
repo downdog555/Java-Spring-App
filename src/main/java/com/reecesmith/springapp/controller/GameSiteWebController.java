@@ -44,7 +44,7 @@ public class GameSiteWebController
     }
 
     @PostMapping("/")
-    public String addComment (Model model, @Valid @ModelAttribute(NEW_ENTRY_TEMPLATE_ID)GameSiteEntry newEntry, BindingResult bindingResult) {
+    public String addComment (Model model, @Valid @ModelAttribute(NEW_ENTRY_TEMPLATE_ID)GameSiteEntry newEntry, BindingResult bindingResult, Search search) {
         if (!bindingResult.hasErrors ()) {
             this.gameSiteService.save (newEntry);
             return HOMEPAGE_REDIRECT;
@@ -52,15 +52,17 @@ public class GameSiteWebController
         else {
             model.addAttribute (GAMESITE_FORM_HEADER_ID, "Add a New Score");
             model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.findAllEntries ());
+            model.addAttribute(SEARCH_VALUE,search);
             return GAMESITE_TEMPLATE;
         }
     }
 
     @GetMapping ("update/{id}")
-    public String editComment (Model model, @PathVariable Integer id) {
+    public String editComment (Model model, @PathVariable Integer id, Search search) {
         model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.findAllEntries ());
         model.addAttribute (GAMESITE_FORM_HEADER_ID, "Please Change the Comment");
         model.addAttribute (NEW_ENTRY_TEMPLATE_ID, this.gameSiteService.findOne (id));
+        model.addAttribute(SEARCH_VALUE,search);
         return GAMESITE_TEMPLATE;
     }
 
@@ -69,7 +71,7 @@ public class GameSiteWebController
     public String saveComment (Model model,
                                @PathVariable Integer id,
                                @Valid @ModelAttribute (NEW_ENTRY_TEMPLATE_ID) GameSiteEntry newEntry,
-                               BindingResult bindingResult) {
+                               BindingResult bindingResult, Search search ) {
         if (!bindingResult.hasErrors ()) {
             GameSiteEntry current = this.gameSiteService.findOne (id);
             current.setUser (newEntry.getUser ());
@@ -83,6 +85,7 @@ public class GameSiteWebController
         else {
             model.addAttribute (GAMESITE_FORM_HEADER_ID, "Please Correct the Comment");
             model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.findAllEntries ());
+            model.addAttribute(SEARCH_VALUE,search);
             return GAMESITE_TEMPLATE;
         }
     }
