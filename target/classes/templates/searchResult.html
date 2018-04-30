@@ -49,7 +49,60 @@
         </div>
         <table>
             <tr>
-                <th>User</th><th>Game Title</th><th>Game Score</th><th>Comment</th><th>Created</th><th>Modified</th><th></th><th></th>
+                <th>
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=username)}">
+                        User
+                    </a>
+                    <br />
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=username, order=asc)}" class="textSmall">asc</a>
+                    <a  th:href="@{/search(searchValue=${value.searchValue}, sort=username, order=desc)}"class="textSmall">desc</a>
+                </th>
+                <th>
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=gametitle)}">
+                        Game Title
+                    </a>
+                    <br />
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=gametitle, order=asc)}" class="textSmall">asc</a>
+                    <a  th:href="@{/search(searchValue=${value.searchValue}, sort=gametitle, order=desc)}"class="textSmall">desc</a>
+                </th>
+                <th>
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=score)}">
+                        Game Score
+                    </a>
+                    <br />
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=score, order=asc)}" class="textSmall">asc</a>
+                    <a  th:href="@{/search(searchValue=${value.searchValue}, sort=score, order=desc)}"class="textSmall">desc</a>
+                </th>
+                <th>
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=comment)}">
+                        Comment
+                    </a>
+                    <br />
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=comment, order=asc)}" class="textSmall">asc</a>
+                    <a  th:href="@{/search(searchValue=${value.searchValue}, sort=comment, order=desc)}"class="textSmall">desc</a>
+                </th>
+                <th>
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=created)}">
+                        Created
+                    </a>
+                    <br />
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=created, order=asc)}" class="textSmall">asc</a>
+                    <a  th:href="@{/search(searchValue=${value.searchValue}, sort=created, order=desc)}"class="textSmall">desc</a>
+                </th>
+                <th>
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=modified)}">
+                        Modified
+                    </a>
+                    <br />
+                    <a th:href="@{/search(searchValue=${value.searchValue}, sort=modified, order=asc)}" class="textSmall">asc</a>
+                    <a  th:href="@{/search(searchValue=${value.searchValue}, sort=modified, order=desc)}"class="textSmall">desc</a>
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
             </tr>
             <tr th:each="entry: ${entries}">
                 <td th:text="${entry.user}"></td>

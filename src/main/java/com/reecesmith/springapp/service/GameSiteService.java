@@ -105,10 +105,12 @@ public class GameSiteService
         return this.gameSiteEntryRepository.findGameSiteEntryById(id);
     }
 
-    public List<GameSiteEntry> search (String value)
+    public List<GameSiteEntry> search (String value, String sort, String order)
     {
         //list to return
         ArrayList<GameSiteEntry> foundValues = new ArrayList<GameSiteEntry>();
+
+        order = order.toLowerCase();
         //all entries
         List<GameSiteEntry> entries = this.gameSiteEntryRepository.findAll();
 
@@ -120,6 +122,78 @@ public class GameSiteService
                 foundValues.add(entry);
             }
         }
+
+//we need to sort here//
+
+        switch (sort)
+        {
+            case "score":
+                if(order.equals("asc"))
+                {
+                    foundValues.sort(GameSiteEntry.GscoreComparatorASC);
+                }
+                else
+                    {
+                        foundValues.sort(GameSiteEntry.GscoreComparatorDESC);
+                    }
+
+                break;
+            case "comment":
+                if(order.equals("asc"))
+                {
+                    foundValues.sort(GameSiteEntry.GcommentCompartorASC);
+                }
+                else
+                {
+                    foundValues.sort(GameSiteEntry.GcommentCompartorDESC);
+                }
+                break;
+            case "username":
+                if(order.equals("asc"))
+                {
+                    foundValues.sort(GameSiteEntry.GusernameComparatorASC);
+                }
+                else
+                {
+                    foundValues.sort(GameSiteEntry.GusernameComparatorDESC);
+                }
+
+                break;
+            case "gametitle":
+                if(order.equals("asc"))
+                {
+                    foundValues.sort(GameSiteEntry.GgamenameComparatorASC);
+                }
+                else
+                {
+                    foundValues.sort(GameSiteEntry.GgamenameComparatorDESC);
+                }
+
+                break;
+            case "created":
+                if(order.equals("asc"))
+                {
+                    foundValues.sort(GameSiteEntry.GcreatedComparatorASC);
+                }
+                else
+                {
+                    foundValues.sort(GameSiteEntry.GcreatedComparatorDesc);
+                }
+
+                break;
+            case "modified":
+                if(order.equals("asc"))
+                {
+                    foundValues.sort(GameSiteEntry.GupdatedComparatorASC);
+                }
+                else
+                {
+                    foundValues.sort(GameSiteEntry.GupdatedComparatorDesc);
+                }
+
+                break;
+        }
+
 
 
 

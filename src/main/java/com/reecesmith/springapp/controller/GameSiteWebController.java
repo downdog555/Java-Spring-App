@@ -90,14 +90,61 @@ public class GameSiteWebController
         }
     }
 
-    @GetMapping (value = "search",params = {"searchValue"})
-    public String searchComments(Model model, @RequestParam("searchValue") String value, Search search)
+    @GetMapping (value = "search",params = {"searchValue", "sort", "order"})
+    public String searchEntriesSort(Model model, @RequestParam("searchValue") String value,Search search,  @RequestParam(name = "sort") String sort, @RequestParam("order") String order)
     {
 
 
 
 
-        model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.search (value));
+        model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.search (value, sort, order));
+        model.addAttribute (NEW_ENTRY_TEMPLATE_ID, new GameSiteEntry());
+        model.addAttribute(PAGE_HEADER, "Search Result For: "+value);
+        model.addAttribute(SEARCH_VALUE, search);
+
+
+        return SEARCH_TEMPLATE;
+    }
+
+
+    @GetMapping (value = "search",params = {"searchValue", "order"})
+    public String searchEntriesOrder( @RequestParam("searchValue") String value,Search search,   @RequestParam("order") String order, Model model)
+    {
+
+
+        String sort = "score";
+
+        model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.search (value, sort, order));
+        model.addAttribute (NEW_ENTRY_TEMPLATE_ID, new GameSiteEntry());
+        model.addAttribute(PAGE_HEADER, "Search Result For: "+value);
+        model.addAttribute(SEARCH_VALUE, search);
+
+
+        return SEARCH_TEMPLATE;
+    }
+
+    @GetMapping (value = "search",params = {"searchValue", "sort" })
+    public String searchComments(Model model, @RequestParam("searchValue") String value,Search search,  @RequestParam(name = "sort") String sort)
+    {
+
+
+        String order = "asc";
+
+        model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.search (value, sort, order));
+        model.addAttribute (NEW_ENTRY_TEMPLATE_ID, new GameSiteEntry());
+        model.addAttribute(PAGE_HEADER, "Search Result For: "+value);
+        model.addAttribute(SEARCH_VALUE, search);
+
+
+        return SEARCH_TEMPLATE;
+    }
+
+    @GetMapping (value = "search",params = {"searchValue"})
+    public String searchComments(Model model, @RequestParam("searchValue") String value,Search search)
+    {
+        String sort = "score";
+        String order = "asc";
+        model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.search (value, sort, order));
         model.addAttribute (NEW_ENTRY_TEMPLATE_ID, new GameSiteEntry());
         model.addAttribute(PAGE_HEADER, "Search Result For: "+value);
         model.addAttribute(SEARCH_VALUE, search);

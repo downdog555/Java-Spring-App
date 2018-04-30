@@ -2,10 +2,12 @@ package com.reecesmith.springapp.domain;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
-import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Date;
 
 
 import javax.validation.constraints.NotEmpty;
@@ -69,19 +71,19 @@ public class GameSiteEntry
         this.score = score;
     }
 
-    public LocalDateTime getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public LocalDateTime getModified() {
+    public Date getModified() {
         return modified;
     }
 
-    public void setModified(LocalDateTime modified) {
+    public void setModified(Date modified) {
         this.modified = modified;
     }
 
@@ -109,15 +111,161 @@ public class GameSiteEntry
     private String comment;
 
     @CreatedDate
-    private LocalDateTime created;
+    @DateTimeFormat(pattern = "HH:mm:ss dd/MM/yyyy")
+    private Date created;
 
+    @DateTimeFormat(pattern = "HH:mm:ss dd/MM/yyyy")
     @LastModifiedDate
-    private LocalDateTime modified;
+    private Date modified;
 
     public GameSiteEntry(@NotEmpty String user, @NotEmpty String gameTitle, @NotEmpty Integer score, @NotEmpty String comment) {
         this.user = user;
         this.gameTitle = gameTitle;
         this.score = score;
         this.comment = comment;
+
+
     }
+
+
+    //comparators to allow for sorting
+
+
+    public static Comparator<GameSiteEntry> GusernameComparatorASC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            String g1Name = g1.getUser().toUpperCase();
+            String g2Name = g2.getUser().toUpperCase();
+
+            //ascending order
+            return g1Name.compareTo(g2Name);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }};
+    public static Comparator<GameSiteEntry> GusernameComparatorDESC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            String g1Name = g1.getUser().toUpperCase();
+            String g2Name = g2.getUser().toUpperCase();
+
+
+
+
+            //descending order
+            return g2Name.compareTo(g1Name);
+        }};
+    public static Comparator<GameSiteEntry> GscoreComparatorASC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            int g1score = g1.getScore();
+            int g2score = g2.getScore();
+
+
+
+
+            //descending order
+            return g1score - g2score;
+        }};
+    public static Comparator<GameSiteEntry> GscoreComparatorDESC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            int g1score = g1.getScore();
+            int g2score = g2.getScore();
+
+
+
+
+            //descending order
+            return g2score - g1score;
+        }};
+    public static Comparator<GameSiteEntry> GgamenameComparatorASC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            String g1Name = g1.getGameTitle().toUpperCase();
+            String g2Name = g2.getGameTitle().toUpperCase();
+
+            //ascending order
+            return g1Name.compareTo(g2Name);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }};
+    public static Comparator<GameSiteEntry> GgamenameComparatorDESC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            String g1Name = g1.getGameTitle().toUpperCase();
+            String g2Name = g2.getGameTitle().toUpperCase();
+
+
+
+
+            //descending order
+            return g2Name.compareTo(g1Name);
+        }};
+    public static Comparator<GameSiteEntry> GcommentCompartorASC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            String g1Name = g1.getComment().toUpperCase();
+            String g2Name = g2.getComment().toUpperCase();
+
+            //ascending order
+            return g1Name.compareTo(g2Name);
+
+            //descending order
+            //return StudentName2.compareTo(StudentName1);
+        }};
+    public static Comparator<GameSiteEntry> GcommentCompartorDESC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            String g1Name = g1.getComment().toUpperCase();
+            String g2Name = g2.getComment().toUpperCase();
+
+
+
+
+            //descending order
+            return g2Name.compareTo(g1Name);
+        }};
+    public static Comparator<GameSiteEntry> GcreatedComparatorASC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            Date g1created = g1.getCreated();
+            Date g2created = g2.getCreated();
+
+            //ascending order
+            return g1created.compareTo(g2created);
+
+
+        }};
+    public static Comparator<GameSiteEntry> GcreatedComparatorDesc = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            Date g1created = g1.getCreated();
+            Date g2created = g2.getCreated();
+
+            //ascending order
+            return g2created.compareTo(g1created);
+        }};
+    public static Comparator<GameSiteEntry> GupdatedComparatorASC = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            Date g1updated = g1.getModified();
+            Date g2updated = g2.getModified();
+
+            //ascending order
+            return g1updated.compareTo(g2updated);
+
+
+        }};
+    public static Comparator<GameSiteEntry> GupdatedComparatorDesc = new Comparator<GameSiteEntry>() {
+
+        public int compare(GameSiteEntry g1, GameSiteEntry g2) {
+            Date g1updated = g1.getModified();
+            Date g2updated = g2.getModified();
+
+            //ascending order
+            return g2updated.compareTo(g1updated);
+        }};
+
 }
