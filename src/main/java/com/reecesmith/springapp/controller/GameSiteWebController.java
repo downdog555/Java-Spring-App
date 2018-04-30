@@ -29,7 +29,7 @@ public class GameSiteWebController
 
     @GetMapping("/")
     public String displayGameSite (Model model, Search search) {
-        model.addAttribute (GAMESITE_FORM_HEADER_ID, "Add a New Comment");
+        model.addAttribute (GAMESITE_FORM_HEADER_ID, "Add a New Score");
         model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.findAllEntries ());
         model.addAttribute (NEW_ENTRY_TEMPLATE_ID, new GameSiteEntry());
         model.addAttribute(SEARCH_VALUE,search);
@@ -39,7 +39,7 @@ public class GameSiteWebController
 
     @GetMapping ("/delete/{id}")
     public String deleteComment (@PathVariable Integer id) {
-        this.gameSiteService.deleteGuestBookEntryById (id);
+        this.gameSiteService.deleteGameSiteEntryById (id);
         return HOMEPAGE_REDIRECT;
     }
 
@@ -60,7 +60,7 @@ public class GameSiteWebController
     @GetMapping ("update/{id}")
     public String editComment (Model model, @PathVariable Integer id, Search search) {
         model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.findAllEntries ());
-        model.addAttribute (GAMESITE_FORM_HEADER_ID, "Please Change the Comment");
+        model.addAttribute (GAMESITE_FORM_HEADER_ID, "Please Change the Entry");
         model.addAttribute (NEW_ENTRY_TEMPLATE_ID, this.gameSiteService.findOne (id));
         model.addAttribute(SEARCH_VALUE,search);
         return GAMESITE_TEMPLATE;
@@ -83,7 +83,7 @@ public class GameSiteWebController
             return HOMEPAGE_REDIRECT;
         }
         else {
-            model.addAttribute (GAMESITE_FORM_HEADER_ID, "Please Correct the Comment");
+            model.addAttribute (GAMESITE_FORM_HEADER_ID, "Please Correct the Score entry");
             model.addAttribute (ENTRIES_TEMPLATE_ID, this.gameSiteService.findAllEntries ());
             model.addAttribute(SEARCH_VALUE,search);
             return GAMESITE_TEMPLATE;

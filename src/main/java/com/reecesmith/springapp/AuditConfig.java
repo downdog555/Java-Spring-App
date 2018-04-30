@@ -10,7 +10,11 @@ import org.thymeleaf.dialect.springdata.SpringDataDialect;
 public class AuditConfig
 {
     @Bean
-    public SpringDataDialect springDataDialect() {
-        return new SpringDataDialect();
+    public SpringDataDialect springDataDialect()
+    {
+        SpringDataDialect s = new SpringDataDialect();
+
+
+        return s;
     }
 }

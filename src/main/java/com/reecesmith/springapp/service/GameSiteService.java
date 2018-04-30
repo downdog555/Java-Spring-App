@@ -5,6 +5,7 @@ import com.reecesmith.springapp.domain.GameSiteEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class GameSiteService
 {
     private String[] bannedWords = {"boi","lul"};
+    private DateTimeFormatter formattter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
 
     @Autowired
     private GameSiteEntryRepository gameSiteEntryRepository;
@@ -21,12 +23,12 @@ public class GameSiteService
         return this.gameSiteEntryRepository.findAll();
     }
 
-    public GameSiteEntry findGuestBookEntryById (Integer id)
+    public GameSiteEntry findGameSiteEntryById (Integer id)
     {
         return this.gameSiteEntryRepository.findGameSiteEntryById(id);
     }
 
-    public void deleteGuestBookEntryById(Integer id)
+    public void deleteGameSiteEntryById(Integer id)
     {
         this.gameSiteEntryRepository.deleteById(id);
     }
@@ -40,6 +42,7 @@ public class GameSiteService
 
     {
 
+    //we can format the date time on save
 
 
 

@@ -3,42 +3,76 @@
 <head>
     <meta charset="UTF-8" />
     <title>Game Score Site with Spring</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/foundation.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
 </head>
 <body>
-<h1 th:text="${pageHeader}"> </h1>
-<a href="/">Back</a>
+<div class="grid-x">
+    <div class="small-12 cell">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li class="menu-text"><h1 th:text="${pageHeader}">  </h1></li>
 
-<form th:object="${value}" th:action="@{'/search'}"  method="get">
-    <label>Search: </label>
-    <input type="text" size="64" th:field="*{searchValue}" />
-    <input type="submit" value="Submit" />
-
-    <p class="warning" th:if="${#fields.hasErrors('searchValue')}">value cannot be empty.</p>
-</form>
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu">
+                    <li><form th:object="${value}" th:action="@{'/search'}"  method="get">
 
 
-<div th:if="${entries.isEmpty()}">
-    <p>There are no entries in the score site. Please add some.</p>
+                        <div class="input-group">
+                            <span class="input-group-label">Search</span>
+                            <input type="text" size="64" th:field="*{searchValue}" id="searchbar"  class="input-group-field" />
+                            <div class="input-group-button">
+                                <input type="submit" value="Submit" class ="success button" />
+                            </div>
+                        </div>
+                        <p class="warning" th:if="${#fields.hasErrors('searchValue')}">search value cannot be empty.</p>
+                    </form></li>
+
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
 </div>
-<table>
-    <tr>
-        <th>User</th><th>Comment</th><th>Game Title</th><th>Game Score</th><th>Created</th><th>Modified</th><th>Delete</th><th>Update</th>
-    </tr>
-    <tr th:each="entry: ${entries}">
-        <td th:text="${entry.user}"></td>
-        <td th:text="${entry.comment}"></td>
-        <td th:text="${entry.gameTitle}"></td>
-        <td th:text="${entry.score}"></td>
-        <td th:text="${entry.created}"></td>
-        <td th:text="${entry.modified}"></td>
-        <td><a th:href="@{'/delete/' + ${entry.id}}">Delete</a></td>
-        <td><a th:href="@{'/update/' + ${entry.id}}">Update</a></td>
-    </tr>
-</table>
+<div class="grid-x">
+    <div class="small-12 cell">
+        <a href="/">Back</a>
 
+        <div th:if="${entries.isEmpty()}">
+            <p class="warning">There are no entries in the score site. Please add some.</p>
+        </div>
+        <table>
+            <tr>
+                <th>User</th><th>Game Title</th><th>Game Score</th><th>Comment</th><th>Created</th><th>Modified</th><th></th><th></th>
+            </tr>
+            <tr th:each="entry: ${entries}">
+                <td th:text="${entry.user}"></td>
 
+                <td th:text="${entry.gameTitle}"></td>
+                <td th:text="${entry.score}"></td>
+                <td th:text="${entry.comment}"></td>
+                <td th:text="${entry.created}"></td>
+                <td th:text="${entry.modified}"></td>
+                <td><a th:href="@{'/delete/' + ${entry.id}}" class="alert button">Delete</a></td>
+                <td><a th:href="@{'/update/' + ${entry.id}}" class="success button">Update</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
 
+<footer>
+
+</footer>
+<script type="text/javascript" th:src="@{/js/vendor/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/vendor/what-input.js}"></script>
+<script type="text/javascript" th:src="@{/js/vendor/foundation.js}"></script>
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
 
 
 </body>

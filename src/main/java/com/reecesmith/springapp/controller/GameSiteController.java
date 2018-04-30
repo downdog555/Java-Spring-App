@@ -17,18 +17,18 @@ public class GameSiteController
     private GameSiteService gameSiteService;
 
 
-    @GetMapping("/comments")
-    public List<GameSiteEntry> testMapping()
+    @GetMapping("/entry")
+    public List<GameSiteEntry> getAll()
     {
         return gameSiteService.findAllEntries();
     }
 
-    @DeleteMapping("/comment/{id}")
+    @DeleteMapping("/entry/{id}")
     public ResponseEntity<Void> deleteGuestBookEntryById(@PathVariable("id") Integer id)
     {
         try
         {
-            this.gameSiteService.deleteGuestBookEntryById(id);
+            this.gameSiteService.deleteGameSiteEntryById(id);
             return ResponseEntity.ok().build();
         }
         catch (ResourceAccessException e)
@@ -44,10 +44,10 @@ public class GameSiteController
     {
         this.gameSiteService.save(guestBookEntry);
     }
-    @GetMapping("/comment/{id}")
+    @GetMapping("/entry/{id}")
     public GameSiteEntry findGuestBookEntryById (@PathVariable ("id") Integer id)
     {
-        return this.gameSiteService.findGuestBookEntryById(id);
+        return this.gameSiteService.findGameSiteEntryById(id);
     }
 
     @GetMapping("/user/{user}")
