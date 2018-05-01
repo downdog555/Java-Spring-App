@@ -91,7 +91,7 @@ public class GameSiteWebController
     }
 
     @GetMapping (value = "search",params = {"searchValue", "sort", "order"})
-    public String searchEntriesSort(Model model, @RequestParam("searchValue") String value,Search search,  @RequestParam(name = "sort") String sort, @RequestParam("order") String order)
+    public String searchEntriesSortOrder(Model model, @RequestParam("searchValue") String value,Search search,  @RequestParam(name = "sort") String sort, @RequestParam("order") String order)
     {
 
 
@@ -124,7 +124,7 @@ public class GameSiteWebController
     }
 
     @GetMapping (value = "search",params = {"searchValue", "sort" })
-    public String searchComments(Model model, @RequestParam("searchValue") String value,Search search,  @RequestParam(name = "sort") String sort)
+    public String searchEntriesSort(Model model, @RequestParam("searchValue") String value,Search search,  @RequestParam(name = "sort") String sort)
     {
 
 
@@ -140,7 +140,7 @@ public class GameSiteWebController
     }
 
     @GetMapping (value = "search",params = {"searchValue"})
-    public String searchComments(Model model, @RequestParam("searchValue") String value,Search search)
+    public String searchEntries(Model model, @RequestParam("searchValue") String value,Search search)
     {
         String sort = "score";
         String order = "asc";

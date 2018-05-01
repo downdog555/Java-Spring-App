@@ -111,10 +111,9 @@ public class GameSiteEntry
     private String comment;
 
     @CreatedDate
-    @DateTimeFormat(pattern = "HH:mm:ss dd/MM/yyyy")
     private Date created;
 
-    @DateTimeFormat(pattern = "HH:mm:ss dd/MM/yyyy")
+
     @LastModifiedDate
     private Date modified;
 
