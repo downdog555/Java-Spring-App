@@ -56,8 +56,8 @@
                 <td th:text="${entry.gameTitle}"></td>
                 <td th:text="${entry.score}"></td>
                 <td th:text="${entry.comment}"></td>
-                <td th:text="${entry.created}"></td>
-                <td th:text="${entry.modified}"></td>
+                <td th:text="${#dates.format(entry.created, 'HH:mm dd/MM/yyyy')}"></td>
+                <td th:text="${#dates.format(entry.modified, 'HH:mm dd/MM/yyyy')}"></td>
                 <td><a th:href="@{'/delete/' + ${entry.id}}" class="alert button">Delete</a></td>
                 <td><a th:href="@{'/update/' + ${entry.id}}" class="success button">Update</a></td>
             </tr>
